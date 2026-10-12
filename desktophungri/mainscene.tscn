@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://cxpx3uuqjpgim" path="res://mainscene.gd" id="1_5lfti"]
 [ext_resource type="Texture2D" uid="uid://dscdrhakkve63" path="res://hungri sprites/idleh1.png" id="1_dn5c8"]
 [ext_resource type="Texture2D" uid="uid://mdjxu83siqjn" path="res://hungri sprites/idleh2.png" id="2_5lfti"]
+[ext_resource type="Texture2D" uid="uid://dmsrr83twso18" path="res://hungri sprites/dragh1.png" id="2_jtreq"]
+[ext_resource type="Texture2D" uid="uid://djx2w04wlergb" path="res://hungri sprites/dragh2.png" id="3_j8b8d"]
 [ext_resource type="Texture2D" uid="uid://cq2nkn7by4mw" path="res://hungri sprites/idleh3.png" id="3_sbvtr"]
 [ext_resource type="Texture2D" uid="uid://bpi78lqgt7gps" path="res://hungri sprites/walkh0000.png" id="5_4ofsq"]
 [ext_resource type="Texture2D" uid="uid://0c8q0vbpfxk" path="res://hungri sprites/walkh0001.png" id="6_4p23x"]
@@ -15,6 +17,17 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ak1xr"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jtreq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j8b8d")
+}],
+"loop": 1,
+"name": &"drag",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_dn5c8")
@@ -75,9 +88,7 @@ script = ExtResource("1_5lfti")
 position = Vector2(119, 124.99999)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ak1xr")
-animation = &"walking"
-frame = 3
-frame_progress = 0.110075176
+animation = &"drag"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1254679328]
 position = Vector2(118.99999, 126)

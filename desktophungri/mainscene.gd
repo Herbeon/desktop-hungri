@@ -1,10 +1,10 @@
 extends Node2D
 
-var speed = 300
+var speed = 100
 var direction = Vector2(1,0)
 
 var screen_size = Vector2()
-var window_size = Vector2(500,500)
+var window_size = Vector2(250,250)
 
 var idle_timer = 0.0
 var is_idling = false
@@ -31,12 +31,13 @@ func _physics_process(delta: float) -> void:
 		idle_timer -= delta
 		if idle_timer <= 0:
 			is_idling = false
-			speed = 300
-			animated_sprite.play("idle")
+			speed = 100
+			animated_sprite.play("walking")
+
 		return
 	var window_position = Vector2(DisplayServer.window_get_position())
 	window_position += direction * speed * delta
-	print(window_position)
+	#print(window_position)
 	window_position.x = clamp(window_position.x,0,screen_size.x-window_size.x)
 	window_position.y = clamp(window_position.y,0,screen_size.y - window_size.y)
 	DisplayServer.window_set_position(Vector2i(window_position))
@@ -46,24 +47,26 @@ func _physics_process(delta: float) -> void:
 		maybe_idle()
 	if (window_position.y <= 0 or window_position.y >= screen_size.y - window_size.y):
 		direction.y *= -1
-		maybe_idle()
+		#maybe_idle()
 
 func maybe_idle():
-	if randf() < 0.3:
+	if randf() < 0.5:
 		is_idling = true
-		idle_timer = randf_range(1.0,3.0)
-		var r = randi() % 3
-		if r == 0:
-			animated_sprite.play("idle")
-			speed = 0
+		idle_timer = randf_range(1.0,5.0)
+		animated_sprite.play("idle")
+		speed = 0
+		#var r = randi() % 3
+		#animated_sprite.play("idle")
 			
 func _on_area_input(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			is_dragging = true
+			animated_sprite.play("drag")
 			var mouse_pos = Vector2(DisplayServer.mouse_get_position())
 			var win_pos = Vector2(DisplayServer.window_get_position())
 			drag_offset = mouse_pos - win_pos
 			# window position based on center 
 		else:
+			animated_sprite.play("walking")
 			is_dragging = false
