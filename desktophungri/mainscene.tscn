@@ -104,7 +104,8 @@ scale = Vector2(0.2, 0.2)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=745301601]
-position = Vector2(1.5, 180.75)
+position = Vector2(1.500061, 180.74994)
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_kyvhd")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=785047272]

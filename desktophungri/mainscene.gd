@@ -23,6 +23,8 @@ func _ready():
 	screen_size = Vector2(DisplayServer.screen_get_size())
 	animated_sprite.play("walking")
 	area.input_event.connect(_on_area_input)
+	$Area2D.mouse_entered.connect(_got_hovered)
+	$Area2D.mouse_exited.connect(_got_unhovered)
 	$PopupMenu.add_item("idle",0)
 	$PopupMenu.add_item("smol",1)
 	$PopupMenu.add_item("normal",2)
@@ -34,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	if is_dragging:
 		var mouse_pos = Vector2(DisplayServer.mouse_get_position())
 		velocity = (mouse_pos - last_mouse) / delta
+		last_mouse = mouse_pos
 		var new_win_pos = mouse_pos - drag_offset 
 		DisplayServer.window_set_position(Vector2i(new_win_pos))
 		return 
@@ -60,6 +63,23 @@ func _physics_process(delta: float) -> void:
 	if (window_position.y <= 0 or window_position.y >= screen_size.y - window_size.y):
 		direction.y *= -1
 		#maybe_idle()
+
+# func get_yeeted(_delta):
+# 	velocity = velocity.lerp(Vector2.ZERO, _delta * speed)
+
+# 	if(velocity.x < 0.1 or velocity.y < 0.1):
+# 		velocity = Vector2.ZERO
+# 		pass 
+# 	DisplayServer.window_set_position(Vector2i(DisplayServer.window_get_position()))
+# 	var window_position = Vector2(DisplayServer.window_get_position())
+
+# 	window_position += Vector2i(velocity)
+
+func _got_hovered():
+	$AnimatedSprite2D.scale = Vector2(0.22,0.22)
+
+func _got_unhovered():
+	$AnimatedSprite2D.scale = Vector2(0.2,0.2)
 
 func maybe_idle():
 	if randf() < 0.5:
@@ -88,6 +108,7 @@ func _on_area_input(_viewport, event, _shape_idx):
 			is_dragging = false
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		$PopupMenu.popup_on_parent(Rect2i(Vector2i(event.position),Vector2i.ZERO))
+
 
 func _on_menu_pressed(id):
 	if id == 0:
