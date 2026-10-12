@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://wteeh4xndxbd" path="res://hungri sprites/walkh0005.png" id="10_2dgxd"]
 [ext_resource type="Texture2D" uid="uid://b2r740bjhpfr4" path="res://hungri sprites/walkh0006.png" id="11_x1mr1"]
 [ext_resource type="Texture2D" uid="uid://cxka7dbxejrlg" path="res://hungri sprites/walkh0007.png" id="12_8gyya"]
+[ext_resource type="FontFile" uid="uid://dt2f5bx7mbo1" path="res://fonts/Schoolbell-Regular.ttf" id="15_j8b8d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ak1xr"]
 animations = [{
@@ -81,6 +82,13 @@ size = Vector2(873, 629.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p08f"]
 size = Vector2(569.5, 420)
 
+[sub_resource type="Theme" id="Theme_j8b8d"]
+PopupMenu/colors/font_color = Color(0.9490196, 0.69411767, 0.5019608, 1)
+PopupMenu/colors/font_hover_color = Color(0.9372549, 0.92941177, 0.99215686, 1)
+PopupMenu/fonts/font = ExtResource("15_j8b8d")
+PopupMenu/fonts/font_separator = ExtResource("15_j8b8d")
+PopupMenu/fonts/title_font = ExtResource("15_j8b8d")
+
 [node name="Node2D" type="Node2D" unique_id=1265484676]
 script = ExtResource("1_5lfti")
 
@@ -102,3 +110,6 @@ shape = SubResource("RectangleShape2D_kyvhd")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=785047272]
 position = Vector2(220.25, -332)
 shape = SubResource("RectangleShape2D_3p08f")
+
+[node name="PopupMenu" type="PopupMenu" parent="." unique_id=348923359]
+theme = SubResource("Theme_j8b8d")
