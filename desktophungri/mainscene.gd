@@ -9,6 +9,9 @@ var window_size = Vector2(250,250)
 var idle_timer = 0.0
 var is_idling = false
 
+var drop_timer = 0.0
+var is_dropping = false 
+
 var is_dragging = false
 var drag_offset = Vector2()
 
@@ -29,6 +32,8 @@ func _ready():
 	$PopupMenu.add_item("smol",1)
 	$PopupMenu.add_item("normal",2)
 	$PopupMenu.add_item("flip",3)
+	$PopupMenu.add_item("owo",4)
+
 	$PopupMenu.id_pressed.connect(_on_menu_pressed)
 
 	
@@ -47,11 +52,25 @@ func _physics_process(delta: float) -> void:
 			speed = 100
 			animated_sprite.play("walking")
 		return
+	elif is_dropping:
+		drop_timer -= delta 
+		if drop_timer <= 0:
+			is_dropping = false
+			animated_sprite.play("idle")
+			idle_timer = 1.0
+			is_idling = true
+			speed = 0
+			#print("done falling")
+		#return
 
 	var window_position = Vector2(DisplayServer.window_get_position())
 	#var pet = Vector2(DisplayServer.window_get_position()) + Vector2(125,125)
 	#var direction = (Vector2(DisplayServer.mouse_get_position()) - pet).normalized()
-	window_position += direction * speed * delta
+	if(is_dropping):
+		window_position.y += 200 * delta 
+	else:
+		window_position += direction * speed * delta
+
 	#print(window_position)
 	window_position.x = clamp(window_position.x,0,screen_size.x-window_size.x)
 	window_position.y = clamp(window_position.y,0,screen_size.y - window_size.y)
@@ -103,9 +122,13 @@ func _on_area_input(_viewport, event, _shape_idx):
 			drag_offset = mouse_pos - win_pos
 			# window position based on center 
 		else:
-			animated_sprite.play("walking")
-			speed = 100
+			drop_timer = 0.3
+			idle_timer = 0.0
+			is_idling = false
 			is_dragging = false
+			is_dropping = true
+			animated_sprite.play("idle")
+
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		$PopupMenu.popup_on_parent(Rect2i(Vector2i(event.position),Vector2i.ZERO))
 
@@ -120,4 +143,6 @@ func _on_menu_pressed(id):
 		$AnimatedSprite2D.scale = Vector2(0.2,0.2)
 	if id == 3:
 		direction.x *= -1
-		animated_sprite.flip_h = !animated_sprite.flip_h		
+		animated_sprite.flip_h = !animated_sprite.flip_h
+	if id == 4:
+		animated_sprite.rotate(PI)
