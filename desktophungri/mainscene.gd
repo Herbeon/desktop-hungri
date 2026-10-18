@@ -18,6 +18,8 @@ var drag_offset = Vector2()
 var last_mouse = Vector2()
 var velocity = Vector2()
 
+var upsidedown = 1
+
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var area = $Area2D
 
@@ -26,6 +28,8 @@ func _ready():
 	screen_size = Vector2(DisplayServer.screen_get_size())
 	animated_sprite.play("walking")
 	area.input_event.connect(_on_area_input)
+	$AnimatedSprite2D.material.set_shader_parameter("hihi",0.0)
+
 	#$Area2D.mouse_entered.connect(_got_hovered)
 	#$Area2D.mouse_exited.connect(_got_unhovered)
 	$PopupMenu.add_item("idle",0)
@@ -67,9 +71,9 @@ func _physics_process(delta: float) -> void:
 	#var pet = Vector2(DisplayServer.window_get_position()) + Vector2(125,125)
 	#var direction = (Vector2(DisplayServer.mouse_get_position()) - pet).normalized()
 	if(is_dropping):
-		window_position.y += 200 * delta 
+		window_position.y += 200 * upsidedown*delta
 	else:
-		window_position += direction * speed * delta
+		window_position += direction * speed * upsidedown * delta
 
 	#print(window_position)
 	window_position.x = clamp(window_position.x,0,screen_size.x-window_size.x)
@@ -103,7 +107,7 @@ func _got_unhovered():
 func maybe_idle():
 	if randf() < 0.5:
 		is_idling = true
-		idle_timer = randf_range(1.0,5.0)
+		idle_timer = randf_range(1.0,10.0)
 		animated_sprite.play("idle")
 		speed = 0
 		#var r = randi() % 3
@@ -145,4 +149,10 @@ func _on_menu_pressed(id):
 		direction.x *= -1
 		animated_sprite.flip_h = !animated_sprite.flip_h
 	if id == 4:
+		if(upsidedown == 1):
+			$AnimatedSprite2D.material.set_shader_parameter("hihi",1.0)
+		else:
+			$AnimatedSprite2D.material.set_shader_parameter("hihi",0.0)
+
 		animated_sprite.rotate(PI)
+		upsidedown *= -1

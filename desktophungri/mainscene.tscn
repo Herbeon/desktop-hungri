@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dscdrhakkve63" path="res://hungri sprites/idleh1.png" id="1_dn5c8"]
 [ext_resource type="Texture2D" uid="uid://mdjxu83siqjn" path="res://hungri sprites/idleh2.png" id="2_5lfti"]
 [ext_resource type="Texture2D" uid="uid://dmsrr83twso18" path="res://hungri sprites/dragh1.png" id="2_jtreq"]
+[ext_resource type="Shader" uid="uid://b5n81rsf1hbdh" path="res://mainscene.gdshader" id="2_lc52x"]
 [ext_resource type="Texture2D" uid="uid://djx2w04wlergb" path="res://hungri sprites/dragh2.png" id="3_j8b8d"]
 [ext_resource type="Texture2D" uid="uid://cq2nkn7by4mw" path="res://hungri sprites/idleh3.png" id="3_sbvtr"]
 [ext_resource type="Texture2D" uid="uid://bpi78lqgt7gps" path="res://hungri sprites/walkh0000.png" id="5_4ofsq"]
@@ -15,6 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://b2r740bjhpfr4" path="res://hungri sprites/walkh0006.png" id="11_x1mr1"]
 [ext_resource type="Texture2D" uid="uid://cxka7dbxejrlg" path="res://hungri sprites/walkh0007.png" id="12_8gyya"]
 [ext_resource type="FontFile" uid="uid://dt2f5bx7mbo1" path="res://fonts/Schoolbell-Regular.ttf" id="15_j8b8d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8b8d"]
+shader = ExtResource("2_lc52x")
+shader_parameter/hihi = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ak1xr"]
 animations = [{
@@ -93,6 +98,7 @@ PopupMenu/fonts/title_font = ExtResource("15_j8b8d")
 script = ExtResource("1_5lfti")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=186680358]
+material = SubResource("ShaderMaterial_j8b8d")
 position = Vector2(119, 124.99999)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ak1xr")
