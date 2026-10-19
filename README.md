@@ -2,7 +2,9 @@
 the hungri [(as seen in cori's call)](https://github.com/Herbeon/coriscall) becomes a desktop pet. made for [Hack club playground!](https://playground.hackclub.com/)
 
 # screenshots
-
+[screenshot1.png]
+[screenshot2.png]
+[screenshot3.png]
 # how to install
 go to the itch page that will exist and download (for linux and maybewindows)
 
