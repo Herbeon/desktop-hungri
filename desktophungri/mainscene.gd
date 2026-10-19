@@ -101,11 +101,11 @@ func _physics_process(delta: float) -> void:
 
 # 	window_position += Vector2i(velocity)
 
-func _got_hovered():
-	$AnimatedSprite2D.scale = Vector2(0.22,0.22)
-
-func _got_unhovered():
-	$AnimatedSprite2D.scale = Vector2(0.2,0.2)
+#func _got_hovered():
+	#$AnimatedSprite2D.scale = Vector2(0.22,0.22)
+#
+#func _got_unhovered():
+	#$AnimatedSprite2D.scale = Vector2(0.2,0.2)
 
 func maybe_idle():
 	if randf() < 0.5:
