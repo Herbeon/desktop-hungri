@@ -20,6 +20,8 @@ var velocity = Vector2()
 
 var upsidedown = 1
 
+var is_smol = false
+
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var area = $Area2D
 
@@ -37,6 +39,7 @@ func _ready():
 	$PopupMenu.add_item("normal",2)
 	$PopupMenu.add_item("flip",3)
 	$PopupMenu.add_item("owo",4)
+	#$PopupMenu.add_item("boing", 5)
 
 	$PopupMenu.id_pressed.connect(_on_menu_pressed)
 
@@ -143,8 +146,10 @@ func _on_menu_pressed(id):
 		animated_sprite.play("idle")
 	if id == 1:
 		$AnimatedSprite2D.scale = Vector2(0.1,0.1)
+		is_smol = true
 	if id == 2:
 		$AnimatedSprite2D.scale = Vector2(0.2,0.2)
+		is_smol = false
 	if id == 3:
 		direction.x *= -1
 		animated_sprite.flip_h = !animated_sprite.flip_h
@@ -154,5 +159,9 @@ func _on_menu_pressed(id):
 		else:
 			$AnimatedSprite2D.material.set_shader_parameter("hihi",0.0)
 
+		if(!is_smol):
+			var tween = create_tween()
+			tween.tween_property($AnimatedSprite2D,"scale", Vector2(0.22,0.22), 0.1)
+			tween.tween_property($AnimatedSprite2D,"scale", Vector2(0.2,0.2), 0.1)
 		animated_sprite.rotate(PI)
 		upsidedown *= -1
